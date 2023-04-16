@@ -1,0 +1,5 @@
+# игнорировать папку idea
+Sprint_4/.idea
+
+# игнорировать папку target
+Sprint_4/target
