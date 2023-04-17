@@ -3,6 +3,7 @@ package pageObject;
 import io.github.bonigarcia.wdm.WebDriverManager;
 import org.junit.After;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
@@ -13,6 +14,15 @@ public class OrderScooter {
     @RunWith(Parameterized.class)
     public static class OrderTestClass {
         private WebDriver driver;
+        @Before
+        public void preparingForTest() {
+            //драйвер для браузера Chrome
+            WebDriverManager.chromedriver().setup();
+            this.driver = new ChromeDriver();
+            //драйвер для браузера FireFox
+            //WebDriverManager.firefoxdriver().setup();
+            //WebDriver driver = new FirefoxDriver();
+        }
         private final String firstName;
         private final String secondName;
         private final String address;
@@ -41,13 +51,6 @@ public class OrderScooter {
         }
         @Test
         public void checkOrderScooter() {
-            //драйвер для браузера Chrome
-            WebDriverManager.chromedriver().setup();
-            this.driver = new ChromeDriver();
-            //драйвер для браузера FireFox
-            //WebDriverManager.firefoxdriver().setup();
-            //WebDriver driver = new FirefoxDriver();
-
             //переход на страницу заказа
             driver.get("https://qa-scooter.praktikum-services.ru/order");
 
@@ -62,7 +65,6 @@ public class OrderScooter {
             String actual = objOrderPage.findTextProcessedOrder();
             Assert.assertEquals("Ошибка: заказ НЕ оформлен", actual, "Заказ оформлен");
         }
-
         @After
         public void teardown() {
             driver.quit();
